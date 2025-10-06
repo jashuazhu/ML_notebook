@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Regression Models Handbook — Index</title>
+<link rel="stylesheet" href="styles.css" />
+
+<script>
+window.MathJax = {
+  tex: {
+    inlineMath: [['$', '$'], ['\\(', '\\)']],
+    displayMath: [['\\[', '\\]'], ['$$','$$']],
+    processEscapes: true,
+    tags: 'ams'
+  },
+  options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+};
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+
+</head>
+<body>
+<main class="book-page">
+  <header class="book-header">
+    <p class="lead">Regression Models Handbook</p>
+    <h1>Index</h1>
+    <p class="muted">A concise, uniform “blog book” of 18 regression models with background, math, code, and figures.</p>
+  </header>
+
+  <section class="table-of-contents">
+    <ol>
+      
+    <li>
+      <span class="chapter-number"></span>
+      <div class="chapter-entry">
+        <a href="model-01-linear-regression.html">1. Linear Regression</a>
+        <p>Linear regression models a continuous response as a linear combination of features. It assumes additive, linear effects and Gaussian noise. The solution minimizes squared errors and is closed-form when the design matrix has full rank.</p>
+      </div>
+    </li>
+    
+    <li>
+      <span class="chapter-number"></span>
+      <div class="chapter-entry">
+        <a href="model-02-multiple-linear.html">2. Multiple Linear Regression</a>
+        <p>Multiple linear regression extends OLS to multiple predictors, allowing control of confounders and estimation of partial effects while keeping interpretability.</p>
+      </div>
+    </li>
+    
+    <li>
+      <span class="chapter-number"></span>
+      <div class="chapter-entry">
+        <a href="model-03-lasso.html">3. Lasso Regression (L1)</a>
+        <p>Lasso adds an $\ell_1$ penalty to induce sparsity, performing embedded feature selection. Useful when $p\gg n$ or many predictors are irrelevant.</p>
+      </div>
+    </li>
+    
+    <li>
+      <span class="chapter-number"></span>
+      <div class="chapter-entry">
+        <a href="model-04-cox.html">4. Cox Proportional Hazards (Survival)</a>
+        <p>The Cox model regresses time-to-event outcomes on covariates without specifying the baseline hazard. It leverages the partial likelihood and assumes proportional hazards.</p>
+      </div>
+    </li>
+    
+    <li>
+      <span class="chapter-number"></span>
+      <div class="chapter-entry">
+        <a href="model-05-ridge.html">5. Ridge Regression (L2)</a>
+        <p>Ridge adds an $\ell_2$ penalty to shrink coefficients and stabilize estimates under multicollinearity. Coefficients rarely become exactly zero.</p>
+      </div>
+    </li>
+    
+    <li>
+      <span class="chapter-number"></span>
+      <div class="chapter-entry">
+        <a href="model-06-stepwise.html">6. Stepwise Regression</a>
+        <p>Stepwise (forward/backward) iteratively adds/removes variables using criteria (AIC/BIC) to select a subset model. Fast and pragmatic, but can be unstable and overfit without care.</p>
+      </div>
+    </li>
+    
+    <li>
+      <span class="chapter-number"></span>
+      <div class="chapter-entry">
+        <a href="model-07-logistic.html">7. Logistic Regression (Binary)</a>
+        <p>Logistic regression models a binary outcome via the log-odds (logit) link. Parameters are estimated by maximizing the Bernoulli likelihood.</p>
+      </div>
+    </li>
+    
+    <li>
+      <span class="chapter-number"></span>
+      <div class="chapter-entry">
+        <a href="model-08-elastic-net.html">8. Elastic Net (L1 + L2)</a>
+        <p>Elastic Net blends Lasso and Ridge to select groups of correlated predictors and stabilize selection.</p>
+      </div>
+    </li>
+    
+    <li>
+      <span class="chapter-number"></span>
+      <div class="chapter-entry">
+        <a href="model-09-polynomial.html">9. Polynomial Regression</a>
+        <p>Polynomial regression uses basis expansion (powers of x) but remains linear in parameters. Useful for smooth nonlinearities.</p>
+      </div>
+    </li>
+    
+    <li>
+      <span class="chapter-number"></span>
+      <div class="chapter-entry">
+        <a href="model-10-quantile.html">10. Quantile Regression</a>
+        <p>Quantile regression models conditional quantiles (median, tails) via the pinball loss. It captures distributional heterogeneity beyond the mean.</p>
+      </div>
+    </li>
+    
+    <li>
+      <span class="chapter-number"></span>
+      <div class="chapter-entry">
+        <a href="model-11-tree.html">11. Decision Tree Regression</a>
+        <p>CART trees split the feature space into regions minimizing squared error. They capture interactions and nonlinearities with simple rules.</p>
+      </div>
+    </li>
+    
+    <li>
+      <span class="chapter-number"></span>
+      <div class="chapter-entry">
+        <a href="model-12-rf.html">12. Random Forest Regression</a>
+        <p>Random Forest averages many bootstrapped trees with feature subsampling, reducing variance and overfitting.</p>
+      </div>
+    </li>
+    
+    <li>
+      <span class="chapter-number"></span>
+      <div class="chapter-entry">
+        <a href="model-13-gbm.html">13. Gradient Boosting Regression</a>
+        <p>Boosting builds an additive model by fitting weak learners to current residuals/negative gradients. Powerful for complex tabular data.</p>
+      </div>
+    </li>
+    
+    <li>
+      <span class="chapter-number"></span>
+      <div class="chapter-entry">
+        <a href="model-14-svr.html">14. Support Vector Regression (SVR)</a>
+        <p>SVR fits a function that deviates from observations by at most $\varepsilon$ using the flattest function, with kernels for nonlinearity.</p>
+      </div>
+    </li>
+    
+    <li>
+      <span class="chapter-number"></span>
+      <div class="chapter-entry">
+        <a href="model-15-xgb.html">15. XGBoost Regression</a>
+        <p>XGBoost is an optimized gradient boosting library with regularization, shrinkage, and second-order updates.</p>
+      </div>
+    </li>
+    
+    <li>
+      <span class="chapter-number"></span>
+      <div class="chapter-entry">
+        <a href="model-16-lightgbm.html">16. LightGBM Regression</a>
+        <p>LightGBM uses histogram-based splitting and leaf-wise growth with depth limits for speed and accuracy.</p>
+      </div>
+    </li>
+    
+    <li>
+      <span class="chapter-number"></span>
+      <div class="chapter-entry">
+        <a href="model-17-nn.html">17. Neural Network Regression (MLP)</a>
+        <p>Feed-forward neural networks approximate complex functions via layered nonlinear transformations, trained by backpropagation.</p>
+      </div>
+    </li>
+    
+    <li>
+      <span class="chapter-number"></span>
+      <div class="chapter-entry">
+        <a href="model-18-knn.html">18. K-Nearest Neighbors Regression</a>
+        <p>KNN predicts by averaging the target of the K closest points (optionally distance-weighted). Nonparametric and simple.</p>
+      </div>
+    </li>
+    
+    </ol>
+  </section>
+
+  <footer class="site-footer">
+    <p>Style unified via <code>styles.css</code>. Formulas rendered with MathJax.</p>
+  </footer>
+</main>
+</body>
+</html>

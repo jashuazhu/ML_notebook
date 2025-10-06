@@ -1,0 +1,146 @@
+<!-- model-01.html  —  Chapter 1: Linear Regression -->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>1. Linear Regression — Regression Models Handbook</title>
+<link rel="stylesheet" href="styles.css" />
+<script>
+window.MathJax = {
+  tex: {
+    inlineMath: [['\$', '\$'], ['\\(', '\\)']],
+    displayMath: [['\\[', '\\]'], ['$$','$$']],
+    processEscapes: true,
+    tags: 'ams'
+  },
+  options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+};
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+</head>
+<body>
+<main class="book-page">
+  <header class="book-header">
+    <p class="lead">Regression Models Handbook</p>
+    <h1>1. Linear Regression</h1>
+  </header>
+
+  <nav class="chapter-nav">
+    <span class="disabled" aria-disabled="true">&larr; Prev</span>
+    <a class="index-link" href="index.html">Index</a>
+    <a href="model-02.html">Next &rarr;</a>
+  </nav>
+
+  <section class="card">
+    <h2>Overview & Background</h2>
+    <p>
+      Linear regression models a continuous response as an affine function of one or more features under additive noise,
+      aiming to minimize the sum of squared residuals. Under the Gauss–Markov assumptions (linearity, independence,
+      homoskedasticity, full rank), the OLS estimator is BLUE (Best Linear Unbiased Estimator).
+    </p>
+  </section>
+
+  <section class="card">
+    <h2>Mathematics & Deduction</h2>
+    <p class="formula">
+      Given $X\in\mathbb{R}^{n\times p}$ and $y\in\mathbb{R}^{n}$, Ordinary Least Squares solves
+      $$\hat{\beta} = \arg\min_{\beta}\; \|y - X\beta\|_2^2.$$
+      Taking derivatives and setting to zero:
+      $$\nabla_\beta \|y - X\beta\|_2^2 = -2X^\top(y - X\beta)=0 \;\Rightarrow\; X^\top X\,\hat{\beta} = X^\top y.$$
+      If $X^\top X$ is invertible, $\hat{\beta}=(X^\top X)^{-1}X^\top y$.
+    </p>
+    <p class="muted">
+      The fitted values are $\hat y=X\hat\beta$ and residuals $r=y-\hat y$. The “hat” matrix $H=X(X^\top X)^{-1}X^\top$
+      projects $y$ onto $\operatorname{col}(X)$. Diagnostics on $r$ (patterns, funnel shapes) reveal misspecification or
+      heteroskedasticity.
+    </p>
+  </section>
+
+  <section class="card">
+    <h2>When to Use (Best For)</h2>
+    <ul>
+      <li>Continuous targets with roughly linear trend vs. predictors</li>
+      <li>Need interpretable effect sizes (slopes) and confidence intervals</li>
+      <li>Residuals approximately homoskedastic and independent</li>
+    </ul>
+  </section>
+
+  <section class="card">
+    <h2>Example & Code</h2>
+    <p>Simulate a linear signal with white noise, fit OLS, and visualize fit and residuals.</p>
+    <details>
+      <summary>Show Python example</summary>
+      <pre><code>import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.linear_model import LinearRegression
+
+rng = np.random.default_rng(0)
+
+# simulate
+n = 250
+x = rng.uniform(-3, 3, size=(n, 1))
+beta0, beta1 = 1.5, 2.2
+noise = rng.normal(0, 1.0, size=n)
+y = beta0 + beta1 * x[:, 0] + noise
+
+# fit
+model = LinearRegression().fit(x, y)
+xg = np.linspace(x.min(), x.max(), 300).reshape(-1, 1)
+yg = model.predict(xg)
+yhat = model.predict(x)
+resid = y - yhat
+
+# plot
+fig, ax = plt.subplots(1, 2, figsize=(10, 4))
+ax[0].scatter(x, y, s=12, label="Original data")
+ax[0].plot(xg, yg, lw=2, label="Fitted")
+ax[0].set_title("Fit"); ax[0].legend()
+
+ax[1].scatter(x, resid, s=10)
+ax[1].axhline(0, ls="--")
+ax[1].set_title("Residuals")
+
+plt.tight_layout(); plt.show()
+print("Intercept, slope:", model.intercept_, model.coef_[0])</code></pre>
+    </details>
+  </section>
+
+  <section class="card">
+    <h2>Figure & Interpretation</h2>
+    <figure>
+      <!-- Simple inline SVG illustration: scatter + fitted line (left) and residuals (right) -->
+      <svg width="820" height="320" viewBox="0 0 820 320" role="img" aria-label="Fit and residuals">
+        <rect x="40" y="30" width="520" height="250" fill="none" stroke="#bbb"/>
+        <rect x="600" y="30" width="180" height="250" fill="none" stroke="#bbb"/>
+        <text x="40" y="22" font-size="13">Fit: original data (dots) + fitted line</text>
+        <text x="600" y="22" font-size="13">Residuals</text>
+        <!-- fitted line -->
+        <polyline points="40,260 560,60" fill="none" stroke="#111" stroke-width="2"/>
+        <!-- a few dots (illustrative only) -->
+        <circle cx="80" cy="250" r="3" fill="#4a90e2"/><circle cx="120" cy="220" r="3" fill="#4a90e2"/>
+        <circle cx="160" cy="210" r="3" fill="#4a90e2"/><circle cx="200" cy="190" r="3" fill="#4a90e2"/>
+        <circle cx="240" cy="170" r="3" fill="#4a90e2"/><circle cx="280" cy="160" r="3" fill="#4a90e2"/>
+        <circle cx="320" cy="150" r="3" fill="#4a90e2"/><circle cx="360" cy="140" r="3" fill="#4a90e2"/>
+        <circle cx="400" cy="120" r="3" fill="#4a90e2"/><circle cx="440" cy="110" r="3" fill="#4a90e2"/>
+        <!-- residuals scatter (illustrative) -->
+        <line x1="600" y1="155" x2="780" y2="155" stroke="#555" stroke-dasharray="4,4"/>
+        <circle cx="610" cy="160" r="3" fill="#e24a62"/><circle cx="635" cy="150" r="3" fill="#e24a62"/>
+        <circle cx="660" cy="170" r="3" fill="#e24a62"/><circle cx="690" cy="150" r="3" fill="#e24a62"/>
+        <circle cx="720" cy="160" r="3" fill="#e24a62"/><circle cx="760" cy="152" r="3" fill="#e24a62"/>
+      </svg>
+      <figcaption>Left: noisy points with fitted line. Right: residuals $r=y-\hat y$; patterns (e.g., curves or funnels) imply model issues.</figcaption>
+    </figure>
+    <p>The fitted line recovers the trend; residuals centered near 0 suggest adequacy. Curvature in residuals hints that a higher-order or different model is needed.</p>
+  </section>
+
+  <nav class="chapter-nav">
+    <span class="disabled" aria-disabled="true">&larr; Prev</span>
+    <a class="index-link" href="index.html">Index</a>
+    <a href="model-02.html">Next &rarr;</a>
+  </nav>
+
+  <footer class="site-footer"><p>&copy; Regression Models Handbook</p></footer>
+</main>
+</body>
+</html>
